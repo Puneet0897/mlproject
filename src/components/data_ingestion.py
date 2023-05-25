@@ -9,8 +9,14 @@ import pandas as pd
 
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass   # this is use for class variable
+
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
  
 @dataclass
+##  here we are decideding where the train, test,raw data will ingect/store
+## the decorator(@dataclass) is using coz.....normally to define the variable inside the class we use init but here we are not using init 
+## thats why decorator is needed., so here we can directly define the class varibles
 class DataIngestionConfig:
     train_data_path: str =os.path.join('artifacts',"train.csv")  # all the output data will be stored in this artifacts folder on the given  path
                                     #train.csv is the file name
@@ -50,4 +56,7 @@ class DataIngestion:
         
 if __name__=='__main__':
     obj=DataIngestion()
-    obj.intiate_data_ingestion()
+    train_data,test_data=obj.intiate_data_ingestion()
+
+    data_transformation=DataTransformation()
+    data_transformation.initiate_data_transformation(train_data,test_data)
