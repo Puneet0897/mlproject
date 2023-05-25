@@ -12,6 +12,9 @@ from dataclasses import dataclass   # this is use for class variable
 
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
+
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
  
 @dataclass
 ##  here we are decideding where the train, test,raw data will ingect/store
@@ -59,4 +62,7 @@ if __name__=='__main__':
     train_data,test_data=obj.intiate_data_ingestion()
 
     data_transformation=DataTransformation()
-    data_transformation.initiate_data_transformation(train_data,test_data)
+    train_arr,test_arr,_= data_transformation.initiate_data_transformation(train_data,test_data)
+
+    modeltrainer=ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
